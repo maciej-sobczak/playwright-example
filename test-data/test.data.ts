@@ -5,3 +5,12 @@ export const userData = {
     password: "testpass123!",
     shortPassword: "pass123"
 }
+
+export const itemData = {
+    category: "elektronika",
+    manufacturer: "JBL",
+    productType: "Słuchawki bezprzewodowe",
+    lowerPriceRange: "300",
+    upperPriceRange: "400",
+    expectedItemCount: 4
+}

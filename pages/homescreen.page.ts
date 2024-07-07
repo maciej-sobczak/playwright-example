@@ -2,6 +2,7 @@ import { Locator, type Page } from '@playwright/test';
 import { RegistrationPage } from './registration.page';
 import { userData } from '../test-data/test.data';
 import { LoginPage } from './login.page';
+import { SearchPage } from './search.page';
 
 export class HomescreenPage {
     constructor(private page: Page) {
@@ -19,6 +20,7 @@ export class HomescreenPage {
     logoutButtonLocator: Locator = this.page.getByTestId('scroll-content').getByRole('link', { name: 'Wyloguj się' });
     createAccountButtonLocator: Locator = this.page.getByRole('link', { name: 'Załóż konto' });
     searchInputLocator: Locator = this.page.getByPlaceholder('Czego szukasz?');
+    searchButtonLocator: Locator = this.page.getByRole('banner').getByRole('button').last();
 
     // Messages
     correctLoginMessage: string = `Cześć, ${userData.firstName}`
@@ -47,5 +49,13 @@ export class HomescreenPage {
     async performLogout(): Promise<void> {
         await this.loginMenuButtonLocator.hover();
         await this.logoutButtonLocator.click();
+    }
+
+    async searchForItem(searchedItem: string): Promise<void> {
+        const search = new SearchPage(this.page);
+
+        await this.searchInputLocator.fill(searchedItem);
+        await this.searchButtonLocator.click();
+        await (await search.getSearchHeaderLocator(searchedItem)).waitFor({ state: 'visible' });
     }
 }
