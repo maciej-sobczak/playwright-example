@@ -10,6 +10,10 @@ export class SearchPage {
     lowerPriceRangeInputLocator: Locator = this.page.getByPlaceholder('od');
     upperPriceRangeInputLocator: Locator = this.page.getByPlaceholder('do');
 
+    // Search results elements
+    allProductsContainerLocators: Locator = this.page.locator('//*[@id="listing-container"]/div');
+    allProductsPriceLocators: Locator = this.page.getByTestId('price-wrapper');
+
     async getSearchHeaderLocator(searchedItem: string): Promise<Locator> {
         return this.page.getByRole('heading', { name: `„ ${searchedItem} ”` });
     }
